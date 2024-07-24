@@ -1,0 +1,27 @@
+<div class="main">
+  <div class="login-content">
+    <div class="img">
+      <img src="assets/images/img3.jfif" alt="">
+    </div>
+    <div class="login-form">
+      <img src="assets/images/logo.png">
+      <h2>Se connecter</h2>
+      <!-- login.component.html -->
+      <form (ngSubmit)="onSubmit()">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" [(ngModel)]="credentials.username" name="username" required>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" [(ngModel)]="credentials.password" name="password" required>
+        </div>
+        <button class="btn-submit" type="submit">Se Connecter</button>
+      </form>
+      <div style="color: brown; text-align: center; margin-top: 10px;" *ngIf="message">{{ message }}</div>
+      
+      
+
+    </div>
+  </div>
+</div>

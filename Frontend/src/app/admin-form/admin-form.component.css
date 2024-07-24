@@ -1,0 +1,224 @@
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+:root{
+  --main-color:#0088ffc6;
+}
+/*   */
+
+.main{
+  position: absolute;
+  left: 275px;
+  top: 15px;
+  width: 80vw;
+  height: 95vh;
+  z-index: 99;
+  background-color: rgb(250, 250, 250);
+}
+.main-with-sidebar {
+  transition: margin-left .4s;
+}
+
+
+.main-no-sidebar {
+  margin-left: -164px;
+  width: 91vw;
+  transition: margin-left 0.4s;
+}
+.logo img{
+  width: 264px;
+  transform: translate(22rem, -2rem);
+}
+header{
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  width: 100%;
+  padding: 10px 20px;
+  transform: translateY(-40px);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+header .title{
+  display: flex;
+  align-items: center;
+ 
+}
+header .title i{
+  color: #000000d6;
+
+}
+header .title h3{
+  font-size: 17px;
+  margin-left: 11px;
+  margin-top: 13px;
+  color: #000000d6;
+}
+header .btn-grp .btn-ajout{
+  background: #0878dae2   ;
+  padding: 6px 10px;
+  border-radius: 14px;
+  margin-left: 20px;
+  transition: .4s;
+}
+header .btn-grp .btn-ajout:hover{
+   background-color: #0088ffc6;
+}
+header .btn-grp .btn-ajout i{
+   font-size: 13px;
+   font-weight: 200;
+   color: #fff;
+}
+header .btn-grp .btn-ajout span{
+   font-size: 15px;
+   font-weight: 400;
+   margin-left: 10px;
+   color: #fff;
+
+}
+/* Styling for register-container */
+.register-container {
+  position: relative;
+  margin: -20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 600px;
+  inset: 0;
+}
+.register-container .closebtn i{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 30px;
+  color: #0878dae2 ;
+  transition: .5s;
+}
+.register-container .closebtn i:hover{
+  color: #0088ffc6;
+}
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: -20px;
+  color: #0878dae2 ;
+}
+
+.register-container form {
+  display: grid;
+  gap: 10px;
+}
+
+.register-container label {
+  font-weight: bold;
+  margin: 5px 0 8px 0;
+}
+.input-grp{
+  display: flex;
+}
+.inpt{
+  margin-right: 20px;
+}
+
+.register-container input[type="text"],
+.register-container input[type="password"] {
+  width: 100%;
+  padding: 5px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.register-container button[type="submit"] {
+  width: 93%;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #5bd65fcb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: .5s;
+}
+
+.register-container button[type="submit"]:hover {
+  background-color: #45a049;
+}
+.msg-error{
+  color: brown;
+  margin-top: 8px;
+  text-align: center;
+}
+
+
+/* Styling for container with list of users */
+.container {
+  position: relative;
+}
+.container .btn-ajout-per{
+  position: absolute;
+  right: 20px;
+  top: 0;
+  background: #0878dae2   ;
+  padding: 6px 10px;
+  border-radius: 14px;
+  margin-left: 20px;
+  transition: .4s;
+}
+.container .btn-ajout-per:hover{
+  background-color: #0088ffc6;
+}
+.container .btn-ajout-per i,
+.container .btn-ajout-per span{
+  color: #fff;
+}
+.container .btn-ajout-per i{
+  margin-right: 10px;
+}
+.container h2 {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container th,
+.container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.container th {
+  background-color: #f2f2f2;
+}
+
+.container button {
+  margin-right: 5px;
+}
+
+.container button.btn-info {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.container button.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.container button.btn-info:hover,
+.container button.btn-danger:hover {
+  opacity: 0.8;
+}

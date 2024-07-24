@@ -1,0 +1,74 @@
+.main{
+    margin-left: 32px;
+}
+.select{
+    width: 58rem;
+    margin-left: 4px;
+    margin-bottom: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    outline: none;
+}
+.table-popup{
+    margin-left: 15px;
+    width: 57rem;
+    margin-bottom: 10px;
+}
+.table-popup tbody{
+    border: 1px solid rgba(203, 200, 200, 0.503);
+    border-top:none ;
+}
+.table-popup .thead{
+    background: rgba(32, 141, 237, 0.099);
+    color: #111111d5; 
+    text-align: left;
+    font-size: 13px;
+}
+.table-popup .thead th{
+    padding: 15px 0;
+    padding-left: 10px;
+}
+.table-popup tbody tr{
+    border-bottom:1px solid rgba(203, 200, 200, 0.503);
+}
+table.table-popup tbody td{
+    text-align: left;
+    font-size: 14px;
+    padding: 10px ;
+}
+.table-popup tbody tr.liv-detail td{
+    text-align: left;
+    padding-left: 15px;
+    font-size: 15px;
+    color: rgba(88, 87, 87, 0.59);
+}
+
+table.table-popup tbody td input{
+    background-color: transparent;
+    width: 60px;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(203, 200, 200, 0.503);
+}
+table.table-popup tbody td  .btn-supp{
+    background-color: rgba(183, 31, 31, 0.799);
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+table.table-popup tbody td button:hover{
+    background-color: brown;
+    transition: .4s;
+}
+  table.table-popup thead th:first-child {
+    border-top-left-radius:13px;
+  }
+  
+  table.table-popup thead th:last-child {
+    border-top-right-radius: 13px;
+  }

@@ -1,0 +1,19 @@
+<div class="main">
+  <div class="icon-user" >
+    <img src="assets/images/user.png" (click)="toggleUserProfile()">
+    <div class="admin-msg">
+      <span>{{ messageAdmin }} ,</span>
+      <h4>{{ user.username }}</h4>
+    </div>
+  </div>
+
+  <div class="user" *ngIf="showUserProfile && user">
+    <h2>Profil Utilisateur</h2>
+    <p><strong>Prénom :</strong> {{ user.firstName }}</p>
+    <p><strong>Nom :</strong> {{ user.lastName }}</p>
+    <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
+    <p><strong>Téléphone :</strong> {{ user.phone }}</p>
+    <button routerLink="/login">Déconnexion</button>
+  </div>
+  <div *ngIf="message">{{ message }}</div>
+</div>

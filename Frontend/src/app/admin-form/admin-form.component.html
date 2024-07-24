@@ -1,0 +1,101 @@
+<app-sidebar></app-sidebar>
+<div class="main" [ngClass]="{'main-with-sidebar': sidebarOpen, 'main-no-sidebar': !sidebarOpen}">
+<div class="header">
+  <app-admin-icon></app-admin-icon> 
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="">
+</div>
+
+ <header>
+    <div class="title">
+      <i class="fa fa-people-roof"></i>
+      <h3>Gérer personnels</h3>
+    </div>
+    <div class="btn-grp flex">
+      <button routerLink="/dash"  class="btn-ajout">
+        <i class="fa fa-person-walking-arrow-right"></i>            
+        <span>Retour</span>
+      </button>
+    </div>
+ </header>
+</div>
+
+  <div class="main-content">
+  <div class="register-container" *ngIf="showModal">
+    <button class="closebtn" (click)="closeModal()"><i class="fa-solid fa-circle-xmark"></i></button>
+    <h2>Ajouter un Nouveau Personnel</h2>
+    <form (ngSubmit)="onSubmit()">
+     <div class="input-grp" >
+      <div class="inpt">
+        <label for="firstName">Prénom:</label>
+        <input type="text" id="firstName" [(ngModel)]="user.firstName" name="firstName" required>
+      </div>
+      <div class="inpt">
+        <label for="lastName">Nom de famille:</label>
+        <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastName" required>
+      </div>
+     </div>
+     <div class="input-grp" >
+      <div class="inpt">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" [(ngModel)]="user.username" name="username" required>
+      </div>
+      <div class="inpt">
+        <label for="phone">Téléphone:</label>
+        <input type="text" id="phone" [(ngModel)]="user.phone" name="phone" required>
+      </div>
+     </div>
+     <div class="input-grp" >
+      <div class="inpt">
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" [(ngModel)]="user.password" name="password" required>
+      </div>
+      <div class="inpt">
+        <label for="confirmPassword">Confirmer Mot de Passe:</label>
+        <input type="password" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" required>
+      </div>
+     </div>
+      <button type="submit">Ajouter</button>
+    </form>
+    <div class="msg-error" *ngIf="message">{{ message }}</div>
+  </div><!--/form-->
+
+  
+  <!--liste des personnels-->
+
+  <div class="container mt-10">
+    <h2>Liste des personnels</h2>
+    <button (click)="openModal()"  class="btn-ajout-per">
+      <i class="fa-solid fa-circle-plus"></i>
+      <span>Ajouter Un Personnel</span>
+  </button>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Prénom</th>
+          <th>Nom de famille</th>
+          <th>Nom d'utilisateur</th>
+          <th>Téléphone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.phone }}</td>
+          <td>
+            <button (click)="deleteUser(user._id)" class="btn btn-danger btn-sm">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    
+  </div><!--/liste-personnels-->
+  
+</div>
+      
+      
+</div>

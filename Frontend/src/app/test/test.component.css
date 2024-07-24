@@ -1,0 +1,30 @@
+/* commande.component.css */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    margin-top: 10px;
+  }
+  
+  .alert {
+    margin-top: 20px;
+    padding: 15px;
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  

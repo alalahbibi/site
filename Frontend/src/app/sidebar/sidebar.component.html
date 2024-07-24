@@ -1,0 +1,39 @@
+<div class="sidebar" [ngClass]="{'open': isOpen}">
+  <button class="close-open-btn" (click)="toggleSidebar()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <nav>
+    <ul class="nav-bar">
+      <li class="first">
+        <a routerLink="/dash" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-bars-progress"></i>
+          <span class="icon-drp">Tableau de bord</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/commandes" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="icon-drp">Gérer Commandes</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/produits" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-shop"></i>
+          <span class="icon-drp">Gérer Produits</span>
+        </a>
+      </li>
+      <li>
+        <a  routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i style="margin-right: 30px;" class="fa-solid fa-chart-simple"></i>
+          <span class="icon-drp">Statistique</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/login" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i style="transform: rotate(180deg);" class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="icon-drp">Exit</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,56 @@
+  <div class="main">
+    <select class="select" (change)="onProductSelect($event)">
+      <option selected>Séléctionner un Produit</option>
+      <option *ngFor="let produit of produits" [value]="produit._id">{{ produit.Nom }}</option>
+    </select>
+  
+    <table class="table-popup">
+      <thead class="thead">
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Quantité</th>
+          <th>Prix Unitaire</th>
+          <th>Prix Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let selectedProduct of selectedProducts; let i = index">
+          <td>{{ selectedProduct._id }}</td>
+          <td>{{ selectedProduct.Nom }}</td>
+          <td>
+            <input type="number" [(ngModel)]="selectedProduct.quantity" (ngModelChange)="updateTotalPrice(selectedProduct)" min="1">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="selectedProduct.unitPrice" (ngModelChange)="updateTotalPrice(selectedProduct)" min="0">
+          </td>
+          <td>{{ selectedProduct.totalPrice }}</td>
+          <td><button (click)="removeProduct(i)" class="btn-supp">Supprimer</button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedProducts.length > 0">
+      <table class="table-popup">
+        <tbody>
+          <tr>
+            <td colspan="4">Coût de Livraison</td>
+            <td>
+              <input type="number" [(ngModel)]="selectedProducts[0].CoutLivraison" (ngModelChange)="updateGrandTotal()">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">Frais de Livraison</td>
+            <td>
+              <input type="number" [(ngModel)]="selectedProducts[0].FraisLivraison" (ngModelChange)="updateGrandTotal()">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-weight: bold;">Total</td>
+            <td>{{ grandTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

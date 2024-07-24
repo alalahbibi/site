@@ -1,0 +1,39 @@
+<app-sidebar></app-sidebar>
+<div class="main" [ngClass]="{'main-with-sidebar': sidebarOpen, 'main-no-sidebar': !sidebarOpen}">
+    <div>
+        <app-admin-icon></app-admin-icon>
+    <div class="logo">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+    <div class="main-content">
+     <header>
+        <div class="title">
+            <i class="fa-solid fa-bars-progress"></i>
+            <h3>Dashboard</h3>
+        </div>
+        <div class="btn-grp flex">
+            <button routerLink="/admin" (click)="toggleUpdateForm()" class="btn-ajout">
+                <i class="fa fa-people-roof"></i>
+                <span>Gérer personnels</span>
+            </button>
+        </div>
+     </header>
+    </div>
+    <h2>Bienvenue dans</h2>
+    <div class="waviy">
+        <span style="--i:1">E</span>
+        <span style="--i:2">-</span>
+        <span style="--i:3">M</span>
+        <span style="--i:4">a</span>
+        <span style="--i:5">n</span>
+        <span style="--i:6">a</span>
+        <span style="--i:7">g</span>
+        <span style="--i:8">e</span>
+        <span style="--i:9">P</span>
+        <span style="--i:10">l</span>
+        <span style="--i:11">u</span>
+        <span style="--i:12">s</span>
+       </div>
+       <span class="desc">- La première application pour faciliter votre e-commerce -</span>
+</div>    
+

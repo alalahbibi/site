@@ -1,0 +1,8 @@
+    <div class="statistiques">
+        <div class="statistiques-card" *ngFor="let stat of statistiques">
+          <h3>{{ stat.title }}</h3>
+          <p class="montant">{{ stat.montant }} DT <i class="fa-solid fa-money-bill-wave"></i></p>
+          <p class="commandes">{{ stat.commandes }} Commande</p>
+        </div>
+      </div>
+      

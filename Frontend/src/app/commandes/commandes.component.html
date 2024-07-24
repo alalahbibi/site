@@ -1,0 +1,270 @@
+<app-sidebar></app-sidebar>
+<div class="main" [ngClass]="{'main-with-sidebar': sidebarOpen, 'main-no-sidebar': !sidebarOpen}">
+  <app-admin-icon></app-admin-icon>
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="">
+  </div>
+  <div class="main-content">
+    <header>
+      <div class="title">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h3>Page des Commandes</h3>
+      </div>
+      <div class="btn-grp flex">
+        <div class="search-grp">
+          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          <input type="text" placeholder="Recherche par nom ou Statut" [(ngModel)]="searchTerm"
+            (input)="onSearchTermChange()">
+        </div>
+        <button (click)="toggleUpdateForm()" class="btn-ajout">
+          <i class="fa-solid fa-plus"></i>
+          <span>Ajouter une Commande</span>
+        </button>
+      </div>
+    </header>
+    <app-statistiques [commandes]="commandes"></app-statistiques>
+    <div class="commandes-list">
+      <table class="table">
+        <thead class="thead fixed-header">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Produits</th>
+            <th scope="col">Client</th>
+            <th scope="col">Date</th>
+            <th scope="col">Livraison</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let commande of filteredCommandes ; let i=index">
+            <td>{{ i+1 }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let produit of commande.produits">{{ produit.Nom }} (x{{ produit.quantite }})</li>
+              </ul>
+            </td>
+            <td>{{ commande.NomClient }}</td>
+            <td>{{ commande.Date | date:'short' }}</td> <!-- Afficher la date ici -->
+            <td>{{ commande.Societe }}</td>
+            <td>{{ commande.Statut }}</td>
+            <td>{{ commande.total }} DT</td> <!-- Afficher le total ici -->
+            <td>
+              <button class="btn btn-view btn-info" (click)="openModal(i)"><i class="fa-solid fa-eye"></i></button>
+              <button class="btn btn-modifier btn-primary" (click)="openUpdateForm(i)"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-info" (click)="openHistoryModal(commande)"> <i class="fa-solid fa-history"></i></button>
+              <button class="btn btn-supp btn-danger" (click)="deleteCommande(i)"><i    class="fa-solid fa-trash-can"></i></button>
+
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Formulaire d'ajout de commande -->
+<div class="form" *ngIf="showUpdateForm">
+  <button (click)="cancelForm()"><i class="fa-solid fa-circle-xmark"></i></button>
+  <div class="text-center mt-5"></div>
+  <div class="rows">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4">
+        <h1>Ajouter une commande</h1>
+        <div class="card-body">
+          <div class="container">
+            <form  id="contact-form" role="form">
+              <div class="controls">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Statut *</label>
+                      <select id="form_need" name="need" class="form-control" required="required"
+                        data-error="Please specify your need." [(ngModel)]="Commande.Statut">
+                        <option value="" selected disabled>--Selectioner Une Statut--</option>
+                        <option *ngFor="let status of statuses" [ngValue]="status.value"
+                          [ngStyle]="{'background-color': status.color}">
+                          {{ status.label }}
+                        </option>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Société de Livraison *</label>
+                      <select id="form_need" name="need" class="form-control" required="required"
+                        data-error="Please specify your need." [(ngModel)]="Commande.Societe">
+                        <option value="" selected disabled>----Selectioner Une Société de Livraison----</option>
+                        <option>Colis Express</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" style="width: 70rem; margin-left: 2px; margin-top: 15px;">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <textarea id="form_message" name="message" class="form-control"
+                          placeholder="Ajouter une note privé (Personels)..." rows="4"
+                          [(ngModel)]="Commande.NotePersonel"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="Detail-client">
+                    <h3>Détails du client</h3>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input id="form_name" type="text" name="name" class="form-control" placeholder="Nom *"
+                            required="required" data-error="entrer un Nom svp."
+                            [(ngModel)]="commandeData.nom_prenom_cl">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input id="form_lastname" type="text" name="surname" class="form-control"
+                            placeholder="Adresse" [(ngModel)]="commandeData. adresse_cl">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input id="form_lastname" type="text" name="surname" class="form-control"
+                            placeholder="Téléphone *" required="required" 
+                            [(ngModel)]="commandeData.tel_cl">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input id="form_lastname" type="text" name="surname" class="form-control"
+                            placeholder="Phone 2" [(ngModel)]="commandeData.tel_2_cl">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control"  id="villes" (change)="onVilleSelected($event)" [(ngModel)]="commandeData.ville_cl">
+                            <option selected disabled>Choisissez une ville</option>
+                            <option *ngFor="let ville of villes">{{ ville }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select id="form_need" name="need" class="form-control" required="required"
+                            data-error="Please specify your need." id="delegations" *ngIf="delegations.length > 0"
+                            [(ngModel)]="commandeData.delegation_cl">
+                            <option disabled selected>Choisissez une déligation</option>
+                            <option *ngFor="let delegation of delegations">{{ delegation }}</option>
+                          </select>
+                          <p *ngIf="delegations.length === 0">Aucune délégation trouvée pour {{ selectedVille }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <textarea id="form_message" name="message" class="form-control"
+                            placeholder="Ajouter une note client..." rows="4"
+                            [(ngModel)]="commandeData.remarque"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <app-product-details (productSelected)="onProductSelected($event)"
+                    (grandTotalUpdated)="onGrandTotalUpdated($event)"></app-product-details>
+
+                  <div class="inpt-colis">
+
+                    <input id="form_lastname" type="text" name="surname" class="" placeholder="service"
+                      [(ngModel)]="commandeData.service">
+
+                    <input id="form_lastname" type="text" name="surname" class="" placeholder="libelle"
+                      [(ngModel)]="commandeData.libelle">
+
+                    <input id="form_lastname" type="text" name="surname" class="" placeholder="nb_piece"
+                      [(ngModel)]="commandeData.nb_piece">
+
+                    <input id="" type="text" name="surname" class="" placeholder="cod" [(ngModel)]="commandeData.cod">
+
+                  </div>
+
+                  <div class="col-md-12">
+                    <input type="submit" class="btn" value="Enregistrer" (click)="ajouter()">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /.8 -->
+    </div>
+    <!-- /.row-->
+  </div>
+</div>
+
+<!-- Modal pour l'aperçu de la commande -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}"
+  [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aperçu de la Commande</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Client :</strong> {{ currentCommande?.NomClient }}</p>
+        <p><strong>Date :</strong> {{ currentCommande?.Date | date:'short' }}</p>
+        <p><strong>Statut :</strong> {{ currentCommande?.Statut }}</p>
+        <p><strong>Société :</strong> {{ currentCommande?.Societe }}</p>
+        <p><strong>Total :</strong> {{ currentCommande && currentCommande.total !== undefined ?
+          formatCurrency(currentCommande.total) : '0 TND' }}</p>
+        <p><strong>Produits :</strong></p>
+        <ul>
+          <li *ngFor="let produit of currentCommande?.produits">{{ produit.Nom }} (x{{ produit.quantite }})</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour l'historique des modifications -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showHistoryModal}" [ngStyle]="{'display': showHistoryModal ? 'block' : 'none'}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Historique des Modifications</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeHistoryModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let modification of commandHistory.slice().reverse()">
+            <p><strong>Date :</strong> {{ modification.date | date:'medium' }}</p>
+            <p><strong>Modifié par :</strong> {{ modification.modifiedBy }}</p>
+            <p><strong>Détails :</strong> {{ modification.details }}</p>
+            <hr>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+

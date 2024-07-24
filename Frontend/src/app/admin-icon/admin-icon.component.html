@@ -1,0 +1,22 @@
+<div class="main">
+    <div class="icon-user" >
+      <img src="assets/images/admin.png" (click)="toggleUserProfile()">
+      <div class="admin-msg">
+        <span>{{ messageAdmin }} ,</span>
+        <h4>Admin</h4>
+      </div>
+    </div>
+  
+    <div class="user" *ngIf="showUserProfile && user">
+      <h2>Profil D'admininstrateur</h2>
+      <p><strong>Prénom :</strong> Bayt</p>
+      <p><strong>Nom :</strong> Said</p>
+      <p><strong>Nom d'utilisateur :</strong> admin</p>
+      <p><strong>Téléphone :</strong> 99-664-333</p>
+      <p><strong>Mot de passe :</strong> adminAdmin</p>
+
+
+    </div>
+    <div *ngIf="message">{{ message }}</div>
+  </div>
+  

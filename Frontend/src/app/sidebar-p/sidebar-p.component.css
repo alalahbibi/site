@@ -1,0 +1,121 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 95%;
+    background: linear-gradient(to bottom, #015f0f, #9ccaf2ea);    margin: 15px;
+    padding: 0 15px;
+    border-radius: 30px;
+    transition: width .4s;
+    z-index: 99;
+  }
+  
+  .sidebar.open {
+    width: 250px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .close-open-btn {
+    border: none;
+    padding:10px 15px ;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 18px;
+    transition: left .4s;
+  }
+  .close-open-btn i{
+    color: #fff;
+  }
+  .sidebar.open .close-open-btn{
+    left: 185px;
+  }
+
+  .icon-drp{
+    display: none;
+  }
+  .sidebar.open .icon-drp{
+    display: block;
+
+  }
+  
+  nav .nav-bar {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 150px;
+    margin-left: 6px;
+  }
+  
+  nav .nav-bar li {
+    margin: 20px 0;
+    overflow: hidden;
+    margin: 15px 0;
+    position: relative;
+  }
+  nav .nav-bar li.first{
+    background-color: #ffffffe1;
+    border-radius: 20px;
+  }
+  nav .nav-bar li.first a i{
+    color: #014a03;
+  }
+  nav .nav-bar li.first a span{
+    color: #037507;
+    font-weight: bold;
+  }
+ 
+  nav .nav-bar li:last-child{
+    margin-top:12rem ;
+  }
+  nav .nav-bar li a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  nav .nav-bar li a:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+
+  }
+  nav .nav-bar li a i,
+  nav .nav-bar li a span{
+    color: #fff;
+    white-space: nowrap;
+  }
+  i{
+    font-size: 23px;
+
+  }
+  nav .nav-bar li a i{
+    margin-right: 24px;
+  }
+  nav .nav-bar li a .icon-drp{
+    position: absolute;
+    font-size: 9px;
+    right: 0;
+    margin-top: 5px;
+    transform: rotate(180deg);
+  }
+  
+  .nav-bar .dropdown li.active > a {
+    background-color: rgba(255, 255, 255, 0.151);
+    border-radius: 20px;
+  }
+
+  nav .nav-bar li a.active-link {
+    background-color: white;
+    border-radius: 20px;
+    transition: background-color .5s, color .5s; 
+    position: relative;
+  }
+  
+  nav .nav-bar li a.active-link i,
+  nav .nav-bar li a.active-link span {
+    color: #037507; 
+  }
+  

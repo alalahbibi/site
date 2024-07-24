@@ -1,0 +1,224 @@
+<app-sidebar></app-sidebar>
+<div class="main" [ngClass]="{'main-with-sidebar': sidebarOpen, 'main-no-sidebar': !sidebarOpen}">
+    <app-admin-icon></app-admin-icon>
+    <div class="logo">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+    <div class="main-content">
+     <header>
+        <div class="title">
+            <i class="fa-solid fa-shop"></i>
+            <h3>Page des Produits</h3>
+        </div>
+        <div class="btn-grp flex">
+            <div class="search-grp">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" placeholder="Recherche par nom ou Statut" [(ngModel)]="searchTerm">
+            </div>
+            <button (click)="toggleUpdateForm()" class="btn-ajout">
+                <i class="fa-solid fa-plus"></i>
+                <span>Ajouter une Produit</span>
+            </button>
+            
+        </div>
+     </header>
+
+     <div class="commandes-list">
+     <table class="table">
+        <thead class="thead fixed-header">
+          <tr>
+            <th style="width: 45px;" scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th style="width: 90px;" scope="col">Image</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Livraison</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Statue</th>
+            <th style="width: 8rem;" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr *ngFor="let produit of filteredProduits; let i = index">
+                <td>{{i+1}}</td>
+           <td>{{produit.Nom}}</td>
+           <td>
+            <div class="d-flex px-2 py-1">
+                <div>
+                  <img style="width: 44px;" src="{{produit.Image || '../assets/img/team-2.jpg'}}" class="avatar avatar-sm me-3" alt="user1">                       
+                 </div>
+              </div>
+           </td>
+           <td>{{produit.Prix}}</td>
+           <td>{{produit.CoutLivraison}}</td>
+           <td>{{produit.Stock}}</td>
+           <td>{{produit.Affiche}}</td>
+           <td >
+            <button class="btn btn-view btn-info" (click)="apercuProduit(produit)"><i class="fa-solid fa-eye"></i></button>
+            <button class="btn btn-modifier btn-primary" (click)="editProduit(produit)"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-supp btn-danger" (click)="supprimer(produit._id)"><i class="fa-solid fa-trash-can"></i></button>
+        </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+    </div>
+</div>
+
+<!--form ajout commande-->
+
+<div class="form" *ngIf="showUpdateForm">
+<button (click)="cancelForm()"><i class="fa-solid fa-circle-xmark"></i></button>
+<div class=" text-center mt-5 ">
+</div>
+<div class="rows ">
+<div class="col-lg-7 mx-auto">
+    <div class="card mt-2 mx-auto p-4 " >
+      <h1>Ajouter une Produit </h1>
+
+        <div class="card-body " >
+            <div class="container" >
+                <form id="contact-form" role="form">
+                    <div class="controls">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="imageUpload" class="upload-label">
+                                        <span class="plus-img">+</span><br>
+                                        Choisissez une image<br> de Produit
+                                    </label><br>
+                                    <input type="file" id="imageUpload" name="image" accept="image/*" (change)="onFileSelected($event)"  [(ngModel)]="Produit.Image"><br><br>                                </div>
+                                 </div>
+                            <div class="col-md-6 inf-g">
+                                <div class="form-group ">
+                                    <label for="form_need">Nom du Produit *</label>
+                                    <input id="form_name" type="text" name="name" class="form-control inp-name"
+                                     required="required"
+                                    data-error="entrer un Nom svp." [(ngModel)]="Produit.Nom">
+                                    <select  class="form-select form-control display" required="required"
+                                    data-error="Please specify your need." [(ngModel)]="Produit.Affiche">
+                                    <option class="op1" style="color: green;"  selected >Affiché</option>
+                                    <option style="color: red; ">Caché</option>
+                                    <option style="color:brown;">En Rupture de stock</option>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form_need">Prix *</label>
+                                    <input id="form_name" type="text" name="name" class="form-control"
+                                     required="required"
+                                    data-error="entrer un Nom svp." [(ngModel)]="Produit.Prix">
+                                </div>
+                                <div class="form-group">
+                                    <label for="form_need">Catégories </label>
+                                    <select id="form_need" name="need" class="form-control" required="required"
+                                        data-error="Please specify your need." [(ngModel)]="Produit.Categorie">
+                                        <option value="" selected disabled>----</option>
+                                        <option>--</option>
+                                        <option>--</option>
+                                        <option>--</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="Detail-client">
+                                <h3>Détails du Prduit</h3>
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="form_name" type="text" name="name" class="form-control"
+                                        placeholder="Prix Avant Remise" required="required"
+                                        data-error="entrer un Nom svp." [(ngModel)]="Produit.Remise">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="form_email" type="email" name="email" class="form-control"
+                                        placeholder="Cout" required="required"
+                                        data-error="entrer un email svp." [(ngModel)]="Produit.Cout">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                                        placeholder="Unité de gestion des stocks" required="required"
+                                        data-error="entrer un Numéro svp." [(ngModel)]="Produit.GestionStock">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                                        placeholder="Frais de Livraison" [(ngModel)]="Produit.FraisLivraison">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                                        placeholder="Cout de livraison" [(ngModel)]="Produit.CoutLivraison">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                                        placeholder="Stock" [(ngModel)]="Produit.Stock">
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn" value="Enregistrer" (click)="ajouter()">
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.8 -->
+
+</div>
+<!-- /.row-->
+
+</div>
+</div>
+
+<!-- Modal Aperçu Produit -->
+<div id="apercuModal" class="modal" *ngIf="showApercuModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeApercuModal()">&times;</span>
+      <h2>Aperçu du Produit</h2>
+      <div class="apercu-content">
+        <img [src]="Produit.Image || 'assets/img/default.png'" alt="Produit Image" class="apercu-image">
+        <p><strong>Nom:</strong> {{Produit.Nom}}</p>
+        <p><strong>Prix:</strong> {{Produit.Prix}}</p>
+        <p><strong>Livraison:</strong> {{Produit.CoutLivraison}}</p>
+        <p><strong>Stock:</strong> {{Produit.Stock}}</p>
+        <p><strong>Statue:</strong> {{Produit.Affiche}}</p>
+        <p><strong>Catégories:</strong> {{Produit.Categorie}}</p>
+        <p><strong>Remise:</strong> {{Produit.Remise}}</p>
+        <p><strong>Cout:</strong> {{Produit.Cout}}</p>
+        <p><strong>Gestion des Stocks:</strong> {{Produit.GestionStock}}</p>
+        <p><strong>Frais de Livraison:</strong> {{Produit.FraisLivraison}}</p>
+      </div>
+    </div>
+  </div>
+  
+
+
+  
